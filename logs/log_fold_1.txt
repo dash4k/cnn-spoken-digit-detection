@@ -1,0 +1,13 @@
+Training Log
+=== Fold 1/10 ===
+Epoch 1: Avg Loss = 2.0358, Accuracy = 29.28%
+Epoch 2: Avg Loss = 1.5464, Accuracy = 51.07%
+Epoch 3: Avg Loss = 1.2797, Accuracy = 61.80%
+Epoch 4: Avg Loss = 1.1563, Accuracy = 68.77%
+Epoch 5: Avg Loss = 1.0192, Accuracy = 72.40%
+Epoch 6: Avg Loss = 0.9357, Accuracy = 75.28%
+Epoch 7: Avg Loss = 0.8547, Accuracy = 78.11%
+Epoch 8: Avg Loss = 0.8136, Accuracy = 79.32%
+Epoch 9: Avg Loss = 0.7721, Accuracy = 81.18%
+Epoch 10: Avg Loss = 0.7329, Accuracy = 82.20%
+Validation Accuracy for Fold 1: 70.00%

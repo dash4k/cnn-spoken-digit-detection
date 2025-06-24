@@ -1,10 +1,10 @@
 import os
 import numpy as np
-import random
 from scipy.io import wavfile
 from scipy.fftpack import dct
 from sklearn.model_selection import KFold
 from tqdm import tqdm
+import pickle
 
 class Logger:
     def __init__(self, filename="../training_log.txt"):
@@ -20,8 +20,10 @@ class Logger:
 
 def extract_mfcc_matrix(signal, sr, n_mfcc=20):
     signal = signal / np.max(np.abs(signal))
+
     frame_size = int(0.025 * sr)
     frame_step = int(0.01 * sr)
+
     signal_len = len(signal)
     num_frames = int(np.ceil((signal_len - frame_size) / frame_step)) + 1
 
@@ -80,8 +82,7 @@ class CNN:
         self.lr = learning_rate
         self.num_classes = num_classes
 
-        # Initialize weights
-        self.conv_filters = np.random.randn(4, 1, 3, 3) * 0.1  # (out_channels, in_channels, kH, kW)
+        self.conv_filters = np.random.randn(4, 1, 3, 3) * 0.1
         self.fc_weights = np.random.randn(252, num_classes) * 0.1
         self.fc_bias = np.zeros(num_classes)
 
@@ -275,8 +276,6 @@ def cross_validate_model(model_class, X, y, k=5, **model_kwargs):
 
     return best_model, best_fold
 
-
-import pickle
 
 def save_model(model, filepath, label_names=None, accuracy=None, precision=None,
                recall=None, f1=None, mean=None, std=None):

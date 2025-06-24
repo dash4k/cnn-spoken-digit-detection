@@ -1,5 +1,3 @@
-# streamlit-gui-cnn.py
-
 import streamlit as st
 import numpy as np
 import os
@@ -10,9 +8,7 @@ from model import extract_mfcc_matrix, load_model, CNN
 
 st.set_page_config(page_title="Spoken Digit Detection (CNN)", layout="centered")
 
-# --------------------------
-# Load CNN model
-# --------------------------
+# Load model
 model_data = load_model()
 model = model_data['model']
 label_names = model_data['label_names']
@@ -23,26 +19,20 @@ f1 = model_data['f1']
 mean = model_data.get('mean', None)
 std = model_data.get('std', None)
 
-# --------------------------
-# Preprocessing
-# --------------------------
+# util
 def preprocess_mfcc(signal, sr):
     mfcc = extract_mfcc_matrix(signal, sr)
     if mfcc.shape[1] < 16:
         raise ValueError("Recording too short or invalid: requires at least 16 frames.")
     mfcc = mfcc[:, :16]
-    return np.expand_dims(np.expand_dims(mfcc, axis=0), axis=0)  # shape: (1, 1, 20, 16)
+    return np.expand_dims(np.expand_dims(mfcc, axis=0), axis=0)
 
-# --------------------------
-# UI
-# --------------------------
+# ui
 st.title("🧠 Real-Time Spoken Digit Detection (CNN)")
 st.caption("Spoken Digit Detection using a Convolutional Neural Network and MFCC")
 st.divider()
 
-# --------------------------
-# Demo
-# --------------------------
+# demo
 st.subheader("🔊 Demo")
 if os.path.exists(DEMO_FILE):
     st.audio(DEMO_FILE, format="audio/wav")
@@ -55,9 +45,7 @@ if os.path.exists(DEMO_FILE):
         except Exception as e:
             st.error(f"Error: {e}")
 
-# --------------------------
-# Upload section
-# --------------------------
+# file upload
 st.divider()
 st.subheader("📁 Upload File and Predict")
 
@@ -73,9 +61,7 @@ if uploaded_file is not None:
         except Exception as e:
             st.error(f"Error: {e}")
 
-# --------------------------
-# Model performance note
-# --------------------------
+# model's note
 st.divider()
 st.subheader("ℹ️ Model Notes")
 st.info("CNN trained with MFCC features (20 coefficients × 16 frames), 4 conv filters, and 10 output classes.")
@@ -88,6 +74,7 @@ col3.metric("Recall", f"{recall:.2%}")
 col4.metric("F1 Score", f"{f1:.2%}")
 
 
+# author
 st.divider()
 st.subheader("Authors")
 

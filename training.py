@@ -7,18 +7,14 @@ from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_
 from sklearn.model_selection import train_test_split
 from model import load_dataset_cnn, CNN, cross_validate_model, Logger, save_model
 
-# ------------------------
-# CONFIGURATION
-# ------------------------
+# Configs
 DATASET_DIR = 'recordings'
 SEED = 42
 KFOLD_SPLITS = 5
 EPOCHS = 10
 
 
-# ------------------------
-# UTILITIES
-# ------------------------
+# Utils
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -51,9 +47,7 @@ def evaluate_model(model, X, y, label_names):
     return accuracy, precision_avg, recall_avg, f1_avg
 
 
-# ------------------------
-# MAIN PIPELINE
-# ------------------------
+# Pipeline
 def main():
     set_seed(SEED)
 
@@ -85,8 +79,5 @@ def main():
     )
 
 
-# ------------------------
-# ENTRY POINT
-# ------------------------
 if __name__ == '__main__':
     main()

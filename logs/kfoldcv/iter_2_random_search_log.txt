@@ -1,0 +1,66 @@
+Training Log
+
+=== Fold 1/5 ===
+Epoch 1: Avg Loss = 2.2296, Accuracy = 23.37%
+Epoch 2: Avg Loss = 1.5864, Accuracy = 50.18%
+Epoch 3: Avg Loss = 1.2406, Accuracy = 63.77%
+Epoch 4: Avg Loss = 1.0732, Accuracy = 70.05%
+Epoch 5: Avg Loss = 0.9586, Accuracy = 73.08%
+Epoch 6: Avg Loss = 0.8911, Accuracy = 75.80%
+Epoch 7: Avg Loss = 0.8262, Accuracy = 77.37%
+Epoch 8: Avg Loss = 0.7791, Accuracy = 78.78%
+Epoch 9: Avg Loss = 0.7311, Accuracy = 80.35%
+Epoch 10: Avg Loss = 0.7025, Accuracy = 80.61%
+Validation Accuracy for Fold 1: 75.99%
+
+=== Fold 2/5 ===
+Epoch 1: Avg Loss = 2.2233, Accuracy = 26.87%
+Epoch 2: Avg Loss = 1.5783, Accuracy = 48.67%
+Epoch 3: Avg Loss = 1.2799, Accuracy = 59.85%
+Epoch 4: Avg Loss = 1.0964, Accuracy = 68.64%
+Epoch 5: Avg Loss = 0.9808, Accuracy = 72.61%
+Epoch 6: Avg Loss = 0.8893, Accuracy = 75.38%
+Epoch 7: Avg Loss = 0.8394, Accuracy = 77.68%
+Epoch 8: Avg Loss = 0.7819, Accuracy = 79.61%
+Epoch 9: Avg Loss = 0.7428, Accuracy = 81.29%
+Epoch 10: Avg Loss = 0.7082, Accuracy = 81.70%
+Validation Accuracy for Fold 2: 72.44%
+
+=== Fold 3/5 ===
+Epoch 1: Avg Loss = 2.4229, Accuracy = 18.18%
+Epoch 2: Avg Loss = 1.8503, Accuracy = 37.04%
+Epoch 3: Avg Loss = 1.4632, Accuracy = 56.01%
+Epoch 4: Avg Loss = 1.2289, Accuracy = 64.84%
+Epoch 5: Avg Loss = 1.0753, Accuracy = 69.91%
+Epoch 6: Avg Loss = 0.9789, Accuracy = 73.51%
+Epoch 7: Avg Loss = 0.9069, Accuracy = 75.60%
+Epoch 8: Avg Loss = 0.8489, Accuracy = 76.59%
+Epoch 9: Avg Loss = 0.8049, Accuracy = 79.05%
+Epoch 10: Avg Loss = 0.7637, Accuracy = 80.36%
+Validation Accuracy for Fold 3: 76.99%
+
+=== Fold 4/5 ===
+Epoch 1: Avg Loss = 2.2180, Accuracy = 21.79%
+Epoch 2: Avg Loss = 1.7376, Accuracy = 41.59%
+Epoch 3: Avg Loss = 1.4599, Accuracy = 54.39%
+Epoch 4: Avg Loss = 1.2803, Accuracy = 62.33%
+Epoch 5: Avg Loss = 1.1676, Accuracy = 65.88%
+Epoch 6: Avg Loss = 1.0784, Accuracy = 70.59%
+Epoch 7: Avg Loss = 0.9973, Accuracy = 72.26%
+Epoch 8: Avg Loss = 0.9300, Accuracy = 73.46%
+Epoch 9: Avg Loss = 0.8891, Accuracy = 76.33%
+Epoch 10: Avg Loss = 0.8363, Accuracy = 77.12%
+Validation Accuracy for Fold 4: 70.50%
+
+=== Fold 5/5 ===
+Epoch 1: Avg Loss = 2.1011, Accuracy = 26.91%
+Epoch 2: Avg Loss = 1.5958, Accuracy = 48.28%
+Epoch 3: Avg Loss = 1.3156, Accuracy = 59.93%
+Epoch 4: Avg Loss = 1.1605, Accuracy = 67.35%
+Epoch 5: Avg Loss = 1.0426, Accuracy = 70.95%
+Epoch 6: Avg Loss = 0.9636, Accuracy = 73.15%
+Epoch 7: Avg Loss = 0.9014, Accuracy = 75.50%
+Epoch 8: Avg Loss = 0.8447, Accuracy = 76.59%
+Epoch 9: Avg Loss = 0.7976, Accuracy = 78.37%
+Epoch 10: Avg Loss = 0.7580, Accuracy = 78.94%
+Validation Accuracy for Fold 5: 72.18%

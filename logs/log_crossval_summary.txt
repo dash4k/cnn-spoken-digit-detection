@@ -1,2 +1,0 @@
-Training Log
-Average Cross-Validation Accuracy: 70.53%

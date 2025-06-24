@@ -78,12 +78,15 @@ def load_dataset_cnn(directory='recordings', sr=8000):
 
 
 class CNN:
-    def __init__(self, input_shape=(1, 20, 16), num_classes=10, learning_rate=0.01):
+    def __init__(self, input_shape=(1, 20, 16), num_classes=10, learning_rate=0.01, num_filters=4):
         self.lr = learning_rate
         self.num_classes = num_classes
+        self.num_filters = num_filters
 
-        self.conv_filters = np.random.randn(4, 1, 3, 3) * 0.1
-        self.fc_weights = np.random.randn(252, num_classes) * 0.1
+        self.conv_filters = np.random.randn(num_filters, 1, 3, 3) * 0.1
+        _, height, width = input_shape  # input_shape = (channels, height, width)
+        fc_input_dim = ((height - 2) // 2) * ((width - 2) // 2) * num_filters
+        self.fc_weights = np.random.randn(fc_input_dim, num_classes) * 0.1
         self.fc_bias = np.zeros(num_classes)
 
     def relu(self, x):
@@ -113,15 +116,28 @@ class CNN:
     def conv_forward(self, x):
         self.x = x  # Save input
         batch_size, _, h, w = x.shape
-        out = np.zeros((batch_size, 4, h - 2, w - 2))
+        out = np.zeros((batch_size, self.num_filters, h - 2, w - 2))  # ← FIXED
 
         for b in range(batch_size):
-            for f in range(4):
+            for f in range(self.num_filters):  # ← FIXED
                 for i in range(h - 2):
                     for j in range(w - 2):
                         region = x[b, 0, i:i+3, j:j+3]
                         out[b, f, i, j] = np.sum(region * self.conv_filters[f, 0])
         return out
+
+    def conv_backward(self, d_out):
+        d_filters = np.zeros_like(self.conv_filters)
+        b, _, h, w = self.x.shape
+
+        for batch in range(b):
+            for f in range(self.num_filters):  # ← FIXED
+                for i in range(h - 2):
+                    for j in range(w - 2):
+                        region = self.x[batch, 0, i:i+3, j:j+3]
+                        d_filters[f, 0] += d_out[batch, f, i, j] * region
+        self.conv_filters -= self.lr * d_filters
+
 
     def max_pool_forward(self, x):
         self.pool_input = x
@@ -148,18 +164,6 @@ class CNN:
             for j in range(w):
                 d_input[:, :, i*2:i*2+2, j*2:j*2+2] += self.pool_mask[:, :, i*2:i*2+2, j*2:j*2+2] * d_out[:, :, i, j][:, :, None, None]
         return d_input
-
-    def conv_backward(self, d_out):
-        d_filters = np.zeros_like(self.conv_filters)
-        b, _, h, w = self.x.shape
-
-        for batch in range(b):
-            for f in range(4):
-                for i in range(h - 2):
-                    for j in range(w - 2):
-                        region = self.x[batch, 0, i:i+3, j:j+3]
-                        d_filters[f, 0] += d_out[batch, f, i, j] * region
-        self.conv_filters -= self.lr * d_filters
 
     def fc_forward(self, x):
         self.fc_input = x
@@ -191,7 +195,7 @@ class CNN:
         # Backprop
         d_logits = self.cross_entropy_grad(probs, y)
         d_fc = self.fc_backward(d_logits)
-        d_fc_reshaped = d_fc.reshape(x.shape[0], 4, 9, 7)
+        d_fc_reshaped = d_fc.reshape(x.shape[0], self.num_filters, (self.x.shape[2] - 2) // 2, (self.x.shape[3] - 2) // 2)
         d_pool = self.max_pool_backward(d_fc_reshaped)
         d_relu = self.relu_backward(d_pool)
         self.conv_backward(d_relu)
@@ -239,7 +243,7 @@ def train(model, X_train, y_train, epochs=10, batch_size=32, logger=None):
             print(log_msg)
 
 
-def cross_validate_model(model_class, X, y, k=5, **model_kwargs):
+def cross_validate_model(model_class, X, y, k=5, logger=None, **model_kwargs):
     kf = KFold(n_splits=k, shuffle=True, random_state=42)
     fold_results = []
     best_model = None
@@ -248,8 +252,8 @@ def cross_validate_model(model_class, X, y, k=5, **model_kwargs):
 
     with tqdm(total=k, desc="Cross-Validation Folds", unit="fold") as fold_bar:
         for fold, (train_index, val_index) in enumerate(kf.split(X), 1):
-            logger = Logger(f"logs/log_fold_{fold}.txt")
-            logger.log(f"=== Fold {fold}/{k} ===")
+            if logger:
+                logger.log(f"\n=== Fold {fold}/{k} ===")
 
             X_train, X_val = X[train_index], X[val_index]
             y_train, y_val = y[train_index], y[val_index]
@@ -259,7 +263,8 @@ def cross_validate_model(model_class, X, y, k=5, **model_kwargs):
 
             preds = model.predict(X_val)
             acc = np.mean(preds == y_val)
-            logger.log(f"Validation Accuracy for Fold {fold}: {acc * 100:.2f}%")
+            if logger:
+                logger.log(f"Validation Accuracy for Fold {fold}: {acc * 100:.2f}%")
             fold_results.append(acc)
 
             # Track best model

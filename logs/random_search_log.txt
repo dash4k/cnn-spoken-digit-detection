@@ -1,0 +1,36 @@
+Training Log
+
+🔍 Random Search Iteration 1: lr=0.00561, filters=2
+🔎 F1 Score (macro): 0.6393
+✨ New Best: F1 Score = 0.6393, Params = {'learning_rate': 0.005611516415334504, 'num_filters': np.int64(2)}
+
+🔍 Random Search Iteration 2: lr=0.01091, filters=4
+🔎 F1 Score (macro): 0.7680
+✨ New Best: F1 Score = 0.7680, Params = {'learning_rate': 0.010910149253639357, 'num_filters': np.int64(4)}
+
+🔍 Random Search Iteration 3: lr=0.00134, filters=16
+🔎 F1 Score (macro): 0.6298
+
+🔍 Random Search Iteration 4: lr=0.03055, filters=8
+🔎 F1 Score (macro): 0.8502
+✨ New Best: F1 Score = 0.8502, Params = {'learning_rate': 0.030550741864012215, 'num_filters': np.int64(8)}
+
+🔍 Random Search Iteration 5: lr=0.04834, filters=2
+🔎 F1 Score (macro): 0.7614
+
+🔍 Random Search Iteration 6: lr=0.01943, filters=4
+🔎 F1 Score (macro): 0.8239
+
+🔍 Random Search Iteration 7: lr=0.00456, filters=4
+🔎 F1 Score (macro): 0.6664
+
+🔍 Random Search Iteration 8: lr=0.00351, filters=2
+🔎 F1 Score (macro): 0.5780
+
+🔍 Random Search Iteration 9: lr=0.00152, filters=16
+🔎 F1 Score (macro): 0.6075
+
+🔍 Random Search Iteration 10: lr=0.00427, filters=8
+🔎 F1 Score (macro): 0.7140
+
+🏆 Best Hyperparameters: {'learning_rate': 0.030550741864012215, 'num_filters': np.int64(8)} with F1 Score: 0.8502

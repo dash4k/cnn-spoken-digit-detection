@@ -63,8 +63,6 @@ if uploaded_file is not None:
 
 # model's note
 st.divider()
-st.subheader("ℹ️ Model Notes")
-st.info("CNN trained with MFCC features (20 coefficients × 16 frames), 4 conv filters, and 10 output classes.")
 st.subheader("📈 Model Performance Summary")
 
 col1, col2, col3, col4 = st.columns(4)
